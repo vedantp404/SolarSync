@@ -1,0 +1,2453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Solar Tracker Dashboard</title>
+
+    <link rel="stylesheet"
+          href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="header">
+
+        <div>
+
+            <h1>☀ Solar Tracker</h1>
+
+            <p>
+                Dual-LDR Automatic Solar Tracking System
+            </p>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <div id="status"
+                 class="status offline">
+
+                ● OFFLINE
+
+            </div>
+
+
+            <button id="themeToggle"
+                    class="theme-toggle"
+                    type="button">
+
+                <span id="themeIcon">☾</span>
+
+                <span id="themeText">Dark</span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN VISUALIZATION
+         ===================================================== -->
+
+    <section class="visual-card">
+
+
+        <div class="section-title">
+
+            <h2>
+                Light Tracking
+            </h2>
+
+            <span id="trackingStatus">
+                Waiting for Arduino...
+            </span>
+
+        </div>
+
+
+
+        <!-- SOLAR SCENE -->
+
+        <div class="solar-scene">
+
+
+            <!-- FLYING BIRDS -->
+
+            <div class="birds">
+
+                <div class="bird bird-1">
+                    <span></span>
+                </div>
+
+                <div class="bird bird-2">
+                    <span></span>
+                </div>
+
+                <div class="bird bird-3">
+                    <span></span>
+                </div>
+
+            </div>
+
+
+
+            <!-- SUN -->
+
+            <div id="sun"
+                 class="sun">
+
+                ☀️
+
+            </div>
+
+
+
+            <!-- SUN PATH -->
+
+            
+
+
+            <!-- SOLAR PANEL -->
+
+            <div id="panel"
+                 class="panel">
+
+                <div class="panel-surface">
+
+                    <div class="panel-line"></div>
+                    <div class="panel-line"></div>
+                    <div class="panel-line"></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SERVO BASE -->
+
+            <div class="servo-base">
+
+                ▲
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SUN POSITION -->
+
+        <div class="sun-position">
+
+            <span>
+                ☀ Sun Position
+            </span>
+
+
+            <div class="sun-position-line">
+
+                <span>
+                    −90°
+                </span>
+
+
+                <div class="sun-position-track">
+
+                    <div id="sunPositionDot"
+                         class="sun-position-dot">
+                    </div>
+
+                </div>
+
+
+                <span>
+                    +90°
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             GRAPHICAL SUNDIAL
+             ================================================= -->
+
+        <!-- =====================================================
+     INTERACTIVE SUNDIAL
+     ===================================================== -->
+
+<section class="sundial-panel">
+
+    <div class="sundial-panel-header">
+
+        <div>
+
+            <span class="small-label">
+                ASTRONOMICAL TIME
+            </span>
+
+            <h2>
+                Interactive Sundial
+            </h2>
+
+            <p class="sundial-description">
+                A graphical sundial driven by the dashboard's local system time.
+            </p>
+
+        </div>
+
+
+        <div class="sundial-live-badge">
+
+            <span class="sundial-live-dot"></span>
+
+            LIVE • LOCAL TIME
+
+        </div>
+
+    </div>
+
+
+    <div class="sundial-layout">
+
+
+        <!-- =================================================
+             SUNDIAL VISUAL
+             ================================================= -->
+
+        <div class="sundial-visual">
+
+            <div class="sundial-shadow-stage">
+
+                <div class="sundial-base">
+
+                    <div class="sundial-rim rim-outer"></div>
+
+                    <div class="sundial-rim rim-middle"></div>
+
+
+                    <div class="sundial-face">
+
+
+                        <!-- HOUR NUMERALS -->
+
+                        <span class="sundial-hour hour-1">
+                            I
+                        </span>
+
+                        <span class="sundial-hour hour-2">
+                            II
+                        </span>
+
+                        <span class="sundial-hour hour-3">
+                            III
+                        </span>
+
+                        <span class="sundial-hour hour-4">
+                            IV
+                        </span>
+
+                        <span class="sundial-hour hour-5">
+                            V
+                        </span>
+
+                        <span class="sundial-hour hour-6">
+                            VI
+                        </span>
+
+                        <span class="sundial-hour hour-7">
+                            VII
+                        </span>
+
+                        <span class="sundial-hour hour-8">
+                            VIII
+                        </span>
+
+                        <span class="sundial-hour hour-9">
+                            IX
+                        </span>
+
+                        <span class="sundial-hour hour-10">
+                            X
+                        </span>
+
+                        <span class="sundial-hour hour-11">
+                            XI
+                        </span>
+
+                        <span class="sundial-hour hour-12">
+                            XII
+                        </span>
+
+
+                        <!-- HOUR TICKS -->
+
+                        <div class="sundial-tick st-1"></div>
+                        <div class="sundial-tick st-2"></div>
+                        <div class="sundial-tick st-3"></div>
+                        <div class="sundial-tick st-4"></div>
+                        <div class="sundial-tick st-5"></div>
+                        <div class="sundial-tick st-6"></div>
+                        <div class="sundial-tick st-7"></div>
+                        <div class="sundial-tick st-8"></div>
+                        <div class="sundial-tick st-9"></div>
+                        <div class="sundial-tick st-10"></div>
+                        <div class="sundial-tick st-11"></div>
+                        <div class="sundial-tick st-12"></div>
+
+
+                        <!-- COMPASS DIRECTIONS -->
+
+                        <span class="sundial-direction sundial-north">
+                            N
+                        </span>
+
+                        <span class="sundial-direction sundial-east">
+                            E
+                        </span>
+
+                        <span class="sundial-direction sundial-south">
+                            S
+                        </span>
+
+                        <span class="sundial-direction sundial-west">
+                            W
+                        </span>
+
+
+                        <!-- INNER COMPASS MARK -->
+
+                        <div class="sundial-compass-mark">
+
+                            <span class="compass-north-mark">
+                                N
+                            </span>
+
+                            <span class="compass-east-mark">
+                                E
+                            </span>
+
+                            <span class="compass-south-mark">
+                                S
+                            </span>
+
+                            <span class="compass-west-mark">
+                                W
+                            </span>
+
+                            <span class="compass-star">
+                                ✦
+                            </span>
+
+                        </div>
+
+
+                        <!-- LIVE SHADOW -->
+
+                        <div id="sundialShadow"
+                             class="sundial-shadow">
+                        </div>
+
+
+                        <!-- GNOMON -->
+
+                        <div class="sundial-gnomon">
+
+                            <div class="gnomon-edge"></div>
+
+                        </div>
+
+
+                        <!-- CENTER -->
+
+                        <div class="sundial-center">
+
+                            <span></span>
+
+                        </div>
+
+
+                        <div class="sundial-base-edge"></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="sundial-caption">
+
+                    <span>
+                        GNOMON
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                        SHADOW
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+                        DIAL PLATE
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SUNDIAL INFORMATION
+             ================================================= -->
+
+        <div class="sundial-info">
+
+
+            <!-- LOCAL TIME -->
+
+            <div class="sundial-time-card">
+
+                <span class="small-label">
+                    LOCAL TIME
+                </span>
+
+                <div id="realTime"
+                     class="real-time">
+
+                    00:00:00
+
+                </div>
+
+                <div id="realDate"
+                     class="real-date">
+
+                    Loading date...
+
+                </div>
+
+                <div class="sundial-local-note">
+
+                    Browser system time
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STATUS -->
+
+            <div class="sundial-reading-grid">
+
+
+                <div class="sundial-reading">
+
+                    <span>
+                        Dial
+                    </span>
+
+                    <strong>
+                        12 H
+                    </strong>
+
+                </div>
+
+
+                <div class="sundial-reading">
+
+                    <span>
+                        Reference
+                    </span>
+
+                    <strong>
+                        LOCAL
+                    </strong>
+
+                </div>
+
+
+                <div class="sundial-reading">
+
+                    <span>
+                        Shadow
+                    </span>
+
+                    <strong>
+                        LIVE
+                    </strong>
+
+                </div>
+
+
+                <div class="sundial-reading">
+
+                    <span>
+                        Tracker
+                    </span>
+
+                    <strong>
+                        DUAL LDR
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EXPLANATION -->
+
+            <div class="sundial-explainer">
+
+                <span class="small-label">
+                    HOW IT WORKS
+                </span>
+
+                <p>
+                    The raised gnomon represents the sundial pointer
+                    and the live shadow moves across the hour markings
+                    as the local time changes.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- =====================================================
+         SENSOR CARDS
+         ===================================================== -->
+
+    <section class="sensor-grid">
+
+
+        <!-- LDR 1 -->
+
+        <div class="sensor-card">
+
+            <span class="sensor-label">
+                LDR 1
+            </span>
+
+            <strong id="ldr1">
+                0
+            </strong>
+
+
+            <div class="sensor-bar">
+
+                <div id="ldr1Bar"
+                     class="sensor-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LDR 2 -->
+
+        <div class="sensor-card">
+
+            <span class="sensor-label">
+                LDR 2
+            </span>
+
+            <strong id="ldr2">
+                0
+            </strong>
+
+
+            <div class="sensor-bar">
+
+                <div id="ldr2Bar"
+                     class="sensor-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LIGHT DIFFERENCE -->
+
+        <div class="sensor-card">
+
+            <span class="sensor-label">
+                Light Difference
+            </span>
+
+            <strong id="difference">
+                0
+            </strong>
+
+            <p id="direction">
+                CENTER
+            </p>
+
+        </div>
+
+
+
+        <!-- SERVO -->
+
+        <div class="sensor-card">
+
+            <span class="sensor-label">
+                Servo Position
+            </span>
+
+            <strong id="servo">
+                90°
+            </strong>
+
+            <p>
+                SG90
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INA219 POWER MONITOR
+         ===================================================== -->
+
+    <section class="power-card">
+
+        <div class="power-header">
+
+            <div>
+
+                <span class="small-label">
+                    ELECTRICAL PERFORMANCE
+                </span>
+
+                <h2>
+                    Solar Power Monitoring
+                </h2>
+
+                <p class="power-description">
+                    Live voltage, current, output power and session energy
+                    measured by the INA219 module.
+                </p>
+
+            </div>
+
+
+            <div class="power-live-badge">
+
+                <span id="powerStatusDot"
+                      class="power-live-dot">
+                </span>
+
+                <span id="powerStatus">
+                    INA219 • WAITING
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="power-grid">
+
+
+            <!-- VOLTAGE -->
+
+            <div class="power-metric">
+
+                <div class="power-icon">
+                    V
+                </div>
+
+                <div>
+
+                    <span class="power-label">
+                        Panel Voltage
+                    </span>
+
+                    <strong id="powerVoltage">
+                        0.00 V
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CURRENT -->
+
+            <div class="power-metric">
+
+                <div class="power-icon">
+                    I
+                </div>
+
+                <div>
+
+                    <span class="power-label">
+                        Panel Current
+                    </span>
+
+                    <strong id="powerCurrent">
+                        0.00 mA
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- POWER -->
+
+            <div class="power-metric">
+
+                <div class="power-icon">
+                    P
+                </div>
+
+                <div>
+
+                    <span class="power-label">
+                        Output Power
+                    </span>
+
+                    <strong id="powerOutput">
+                        0.000 W
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ENERGY -->
+
+            <div class="power-metric">
+
+                <div class="power-icon">
+                    E
+                </div>
+
+                <div>
+
+                    <span class="power-label">
+                        Session Energy
+                    </span>
+
+                    <strong id="powerEnergy">
+                        0.000 Wh
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="power-footnote">
+
+            Power is calculated as V × I.
+            Energy accumulates from the live dashboard session.
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SKY CONDITION / ENVIRONMENT
+         ===================================================== -->
+
+    <section class="weather-card">
+
+        <div class="weather-header">
+
+            <div>
+
+                <span class="small-label">
+                    LDR-BASED ENVIRONMENT ANALYSIS
+                </span>
+
+                <h2>
+                    Sky Condition Estimate
+                </h2>
+
+                <p class="weather-description">
+                    Estimates ambient sky brightness from the two LDR sensors.
+                </p>
+
+            </div>
+
+
+            <div class="weather-condition">
+
+                <span id="skyIcon"
+                      class="weather-icon">
+
+                    ☀
+
+                </span>
+
+
+                <div>
+
+                    <strong id="skyCondition">
+                        Waiting for sensor data
+                    </strong>
+
+                    <span id="weatherConfidence"
+                          class="weather-confidence">
+
+                        —
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="weather-metrics">
+
+
+            <!-- AMBIENT BRIGHTNESS -->
+
+            <div class="weather-metric">
+
+                <span>
+                    Ambient Brightness
+                </span>
+
+                <strong id="ambientBrightness">
+                    0%
+                </strong>
+
+
+                <div class="weather-progress">
+
+                    <div id="ambientFill"
+                         class="weather-progress-fill">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AVERAGE LDR -->
+
+            <div class="weather-metric compact">
+
+                <span>
+                    Average LDR
+                </span>
+
+                <strong id="averageLDR">
+                    0
+                </strong>
+
+            </div>
+
+
+
+            <!-- STABILITY -->
+
+            <div class="weather-metric compact">
+
+                <span>
+                    Light Stability
+                </span>
+
+                <strong id="weatherStability">
+                    —
+                </strong>
+
+            </div>
+
+
+
+            <!-- DIFFERENCE -->
+
+            <div class="weather-metric compact">
+
+                <span>
+                    Sensor Difference
+                </span>
+
+                <strong id="weatherDifference">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="weatherExplanation"
+             class="weather-explanation">
+
+            Waiting for sufficient LDR readings...
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TRACKING CONTROL
+         ===================================================== -->
+
+    <section class="control-card">
+
+        <div class="card-heading">
+
+            <div>
+
+                <span class="small-label">
+                    TRACKING CONTROL
+                </span>
+
+                <h2>
+                    Controller
+                </h2>
+
+            </div>
+
+
+            <span id="modeBadge"
+                  class="mode-badge auto">
+
+                AUTO
+
+            </span>
+
+        </div>
+
+
+
+        <!-- MODE -->
+
+        <div class="mode-buttons">
+
+            <button id="autoButton"
+                    class="control-button active"
+                    type="button">
+
+                AUTO TRACKING
+
+            </button>
+
+
+            <button id="manualButton"
+                    class="control-button"
+                    type="button">
+
+                MANUAL
+
+            </button>
+
+        </div>
+
+
+
+        <!-- MANUAL ANGLE -->
+
+        <div class="control-group">
+
+            <div class="control-header">
+
+                <span>
+                    Manual Panel Angle
+                </span>
+
+                <strong id="manualAngleValue">
+                    0°
+                </strong>
+
+            </div>
+
+
+            <input
+                id="manualAngle"
+                type="range"
+                min="-90"
+                max="90"
+                value="0"
+                step="1"
+            >
+
+
+            <div class="range-labels">
+
+                <span>
+                    -90° LEFT
+                </span>
+
+                <span>
+                    0°
+                </span>
+
+                <span>
+                    +90° RIGHT
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SENSITIVITY + SPEED -->
+
+        <div class="control-row">
+
+
+            <!-- LDR SENSITIVITY -->
+
+            <div class="control-group small-control">
+
+                <div class="control-header">
+
+                    <span>
+                        LDR Sensitivity
+                    </span>
+
+                    <strong id="toleranceValue">
+                        40
+                    </strong>
+
+                </div>
+
+
+                <input
+                    id="toleranceSlider"
+                    type="range"
+                    min="10"
+                    max="150"
+                    value="40"
+                    step="5"
+                >
+
+            </div>
+
+
+
+            <!-- TRACKING SPEED -->
+
+            <div class="control-group small-control">
+
+                <div class="control-header">
+
+                    <span>
+                        Tracking Speed
+                    </span>
+
+                    <strong id="stepValue">
+                        2
+                    </strong>
+
+                </div>
+
+
+                <input
+                    id="stepSlider"
+                    type="range"
+                    min="1"
+                    max="8"
+                    value="2"
+                    step="1"
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CENTER -->
+
+        <button id="centerButton"
+                class="center-button"
+                type="button">
+
+            ↺ Return Panel to Center
+
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SYSTEM STATUS
+         ===================================================== -->
+
+    <section class="system-card">
+
+        <div class="card-heading">
+
+            <div>
+
+                <span class="small-label">
+                    SYSTEM STATUS
+                </span>
+
+                <h2>
+                    Hardware Monitor
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="system-grid">
+
+
+            <!-- ARDUINO -->
+
+            <div class="system-item">
+
+                <span>
+                    Arduino UNO
+                </span>
+
+                <strong id="arduinoHealth">
+                    ● Connected
+                </strong>
+
+            </div>
+
+
+
+            <!-- LDR 1 -->
+
+            <div class="system-item">
+
+                <span>
+                    LDR 1
+                </span>
+
+                <strong id="ldr1Health">
+                    ● Working
+                </strong>
+
+            </div>
+
+
+
+            <!-- LDR 2 -->
+
+            <div class="system-item">
+
+                <span>
+                    LDR 2
+                </span>
+
+                <strong id="ldr2Health">
+                    ● Working
+                </strong>
+
+            </div>
+
+
+
+            <!-- SERVO -->
+
+            <div class="system-item">
+
+                <span>
+                    Servo Controller
+                </span>
+
+                <strong id="servoHealth">
+                    ● Ready
+                </strong>
+
+            </div>
+
+
+
+            <!-- INA219 -->
+
+            <div class="system-item">
+
+                <span>
+                    INA219 Power Monitor
+                </span>
+
+                <strong id="powerHealth">
+                    ● Waiting
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LIVE GRAPHS
+         ===================================================== -->
+
+    <section class="graphs-grid">
+
+
+        <!-- PANEL ANGLE GRAPH -->
+
+        <div class="graph-card">
+
+            <div class="card-heading graph-heading-enhanced">
+
+                <div>
+
+                    <span class="small-label">
+                        LIVE HISTORY
+                    </span>
+
+                    <h2>
+                        Panel Angle
+                    </h2>
+
+                </div>
+
+
+                <div class="graph-current-value">
+
+                    <span>
+                        NOW
+                    </span>
+
+                    <strong id="angleGraphValue">
+                        0°
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chart-wrapper">
+
+                <div class="chart-y-axis angle-axis"
+                     aria-hidden="true">
+
+                    <span>
+                        +90°
+                    </span>
+
+                    <span>
+                        +45°
+                    </span>
+
+                    <span>
+                        0°
+                    </span>
+
+                    <span>
+                        −45°
+                    </span>
+
+                    <span>
+                        −90°
+                    </span>
+
+                </div>
+
+
+                <div class="chart-main">
+
+                    <canvas id="angleChart"></canvas>
+
+
+                    <div class="chart-x-axis">
+
+                        <span>
+                            −15s
+                        </span>
+
+                        <span>
+                            −10s
+                        </span>
+
+                        <span>
+                            −5s
+                        </span>
+
+                        <span>
+                            NOW
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- LDR GRAPH -->
+
+        <div class="graph-card">
+
+            <div class="card-heading graph-heading-enhanced">
+
+                <div>
+
+                    <span class="small-label">
+                        LIVE HISTORY
+                    </span>
+
+                    <h2>
+                        LDR Comparison
+                    </h2>
+
+                </div>
+
+
+                <div class="graph-legend">
+
+                    <span>
+                        <i class="legend-dot ldr1-dot"></i>
+                        LDR 1
+                    </span>
+
+                    <span>
+                        <i class="legend-dot ldr2-dot"></i>
+                        LDR 2
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chart-wrapper">
+
+                <div class="chart-y-axis ldr-axis"
+                     aria-hidden="true">
+
+                    <span>
+                        1023
+                    </span>
+
+                    <span>
+                        768
+                    </span>
+
+                    <span>
+                        512
+                    </span>
+
+                    <span>
+                        256
+                    </span>
+
+                    <span>
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="chart-main">
+
+                    <canvas id="ldrChart"></canvas>
+
+
+                    <div class="chart-x-axis">
+
+                        <span>
+                            −15s
+                        </span>
+
+                        <span>
+                            −10s
+                        </span>
+
+                        <span>
+                            −5s
+                        </span>
+
+                        <span>
+                            NOW
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- POWER GRAPH -->
+
+        <div class="graph-card power-graph-card">
+
+            <div class="card-heading graph-heading-enhanced">
+
+                <div>
+
+                    <span class="small-label">
+                        LIVE HISTORY
+                    </span>
+
+                    <h2>
+                        Output Power
+                    </h2>
+
+                </div>
+
+
+                <div class="graph-current-value">
+
+                    <span>
+                        NOW
+                    </span>
+
+                    <strong id="powerGraphValue">
+                        0.000 W
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chart-wrapper">
+
+                <div class="chart-y-axis power-axis"
+                     aria-hidden="true">
+
+                    <span id="powerAxisTop">
+                        0.000 W
+                    </span>
+
+                    <span id="powerAxis75">
+                        0.000 W
+                    </span>
+
+                    <span id="powerAxis50">
+                        0.000 W
+                    </span>
+
+                    <span id="powerAxis25">
+                        0.000 W
+                    </span>
+
+                    <span>
+                        0.000 W
+                    </span>
+
+                </div>
+
+
+                <div class="chart-main">
+
+                    <canvas id="powerChart"></canvas>
+
+
+                    <div class="chart-x-axis">
+
+                        <span>
+                            −15s
+                        </span>
+
+                        <span>
+                            −10s
+                        </span>
+
+                        <span>
+                            −5s
+                        </span>
+
+                        <span>
+                            NOW
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LIGHT BALANCE
+         ===================================================== -->
+
+    <section class="balance-card">
+
+        <div>
+
+            <span class="small-label">
+                TRACKING QUALITY
+            </span>
+
+            <h2>
+                Light Balance
+            </h2>
+
+            <p>
+                How closely the two LDR readings are matched.
+            </p>
+
+        </div>
+
+
+        <div class="balance-score">
+
+            <strong id="balanceScore">
+                100%
+            </strong>
+
+
+            <div class="balance-bar">
+
+                <div id="balanceFill"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DATA LOGGER
+         ===================================================== -->
+
+    <section class="data-card">
+
+        <div class="card-heading">
+
+            <div>
+
+                <span class="small-label">
+                    SESSION DATA
+                </span>
+
+                <h2>
+                    Data Logger
+                </h2>
+
+            </div>
+
+
+            <strong id="sampleCount">
+                0 samples
+            </strong>
+
+        </div>
+
+
+
+        <div class="data-buttons">
+
+            <button id="downloadCSV"
+                    class="control-button"
+                    type="button">
+
+                ↓ Export CSV
+
+            </button>
+
+
+            <button id="clearHistory"
+                    class="control-button danger"
+                    type="button">
+
+                Clear History
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SESSION SUMMARY
+         ===================================================== -->
+
+    <!-- =====================================================
+     SESSION SUMMARY — ENHANCED
+     ===================================================== -->
+
+    <section class="snapshot-summary">
+
+        <!-- HEADER -->
+
+        <div class="snapshot-header">
+
+            <div class="snapshot-title">
+
+                <span class="snapshot-kicker">
+                    LIVE SESSION SNAPSHOT
+                </span>
+
+                <h2>
+                    Session Data Summary
+                </h2>
+
+                <p>
+                    The same fields recorded in the CSV are shown here live.
+                </p>
+
+            </div>
+
+
+            <div class="snapshot-live">
+
+                <span class="snapshot-live-dot"></span>
+
+                LOGGING
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SUMMARY GRID -->
+
+        <div class="snapshot-grid">
+
+
+            <!-- DATE -->
+
+            <div class="snapshot-item accent-blue">
+
+                <div class="snapshot-icon">
+                    ▣
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        DATE
+                    </span>
+
+                    <strong id="summaryDate">
+                        —
+                    </strong>
+
+                    <small>
+                        Current session date
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TIME -->
+
+            <div class="snapshot-item accent-gold">
+
+                <div class="snapshot-icon">
+                    ◷
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        TIME
+                    </span>
+
+                    <strong id="summaryTime">
+                        —
+                    </strong>
+
+                    <small>
+                        Local system time
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DAY -->
+
+            <div class="snapshot-item accent-purple">
+
+                <div class="snapshot-icon">
+                    ◆
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        DAY
+                    </span>
+
+                    <strong id="summaryDay">
+                        —
+                    </strong>
+
+                    <small>
+                        Day of the week
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SKY CONDITION -->
+
+            <div class="snapshot-item accent-orange">
+
+                <div class="snapshot-icon">
+                    ☁
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        SKY CONDITION
+                    </span>
+
+                    <strong id="summarySky">
+                        —
+                    </strong>
+
+                    <small>
+                        Based on LDR sensors
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WEATHER SOURCE -->
+
+            <div class="snapshot-item accent-cyan">
+
+                <div class="snapshot-icon">
+                    ≋
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        WEATHER DATA SOURCE
+                    </span>
+
+                    <strong id="summaryWeatherSource">
+                        LDR sensor estimate
+                    </strong>
+
+                    <small>
+                        Environment classification
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WEATHER CONFIDENCE -->
+
+            <div class="snapshot-item accent-green">
+
+                <div class="snapshot-icon">
+                    ✓
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        WEATHER CONFIDENCE
+                    </span>
+
+                    <strong id="summaryWeatherConfidence">
+                        —
+                    </strong>
+
+                    <small>
+                        Sensor estimate
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AMBIENT BRIGHTNESS -->
+
+            <div class="snapshot-item accent-gold">
+
+                <div class="snapshot-icon">
+                    ☀
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        AMBIENT BRIGHTNESS
+                    </span>
+
+                    <strong id="summaryBrightness">
+                        0%
+                    </strong>
+
+                    <div class="snapshot-mini-bar">
+                        <span id="summaryBrightnessBar"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AVERAGE LDR -->
+
+            <div class="snapshot-item accent-blue">
+
+                <div class="snapshot-icon">
+                    ▥
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        AVERAGE LDR
+                    </span>
+
+                    <strong id="summaryAverageLDR">
+                        0
+                    </strong>
+
+                    <small>
+                        Combined sensor level
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LDR 1 -->
+
+            <div class="snapshot-item accent-orange">
+
+                <div class="snapshot-icon">
+                    ①
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        LDR 1
+                    </span>
+
+                    <strong id="summaryLDR1">
+                        0
+                    </strong>
+
+                    <small>
+                        Left sensor
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LDR 2 -->
+
+            <div class="snapshot-item accent-cyan">
+
+                <div class="snapshot-icon">
+                    ②
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        LDR 2
+                    </span>
+
+                    <strong id="summaryLDR2">
+                        0
+                    </strong>
+
+                    <small>
+                        Right sensor
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIGHT DIFFERENCE -->
+
+            <div class="snapshot-item accent-gold">
+
+                <div class="snapshot-icon">
+                    Δ
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        LIGHT DIFFERENCE
+                    </span>
+
+                    <strong id="summaryDifference">
+                        0
+                    </strong>
+
+                    <small>
+                        LDR 1 − LDR 2
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIGHT BALANCE -->
+
+            <div class="snapshot-item accent-green">
+
+                <div class="snapshot-icon">
+                    ⚖
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        LIGHT BALANCE
+                    </span>
+
+                    <strong id="summaryBalance">
+                        100%
+                    </strong>
+
+                    <div class="snapshot-mini-bar green">
+                        <span id="summaryBalanceBar"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LIGHT STABILITY -->
+
+            <div class="snapshot-item accent-blue">
+
+                <div class="snapshot-icon">
+                    ≋
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        LIGHT STABILITY
+                    </span>
+
+                    <strong id="summaryStability">
+                        —
+                    </strong>
+
+                    <div class="snapshot-mini-bar blue">
+                        <span id="summaryStabilityBar"></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PANEL ANGLE -->
+
+            <div class="snapshot-item accent-gold">
+
+                <div class="snapshot-icon">
+                    ∠
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        PANEL ANGLE
+                    </span>
+
+                    <strong id="summaryPanelAngle">
+                        0°
+                    </strong>
+
+                    <small>
+                        Tracking position
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RAW SERVO -->
+
+            <div class="snapshot-item accent-purple">
+
+                <div class="snapshot-icon">
+                    ↻
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        RAW SERVO POSITION
+                    </span>
+
+                    <strong id="summaryServo">
+                        90°
+                    </strong>
+
+                    <small>
+                        SG90 position
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TRACKING DIRECTION -->
+
+            <div class="snapshot-item accent-cyan">
+
+                <div class="snapshot-icon">
+                    →
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        TRACKING DIRECTION
+                    </span>
+
+                    <strong id="summaryDirection">
+                        CENTER
+                    </strong>
+
+                    <small>
+                        Current movement
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MODE -->
+
+            <div class="snapshot-item accent-orange">
+
+                <div class="snapshot-icon">
+                    ⚙
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        MODE
+                    </span>
+
+                    <strong id="summaryMode">
+                        AUTO
+                    </strong>
+
+                    <small>
+                        Controller mode
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TRACKING STATUS -->
+
+            <div class="snapshot-item snapshot-status accent-green">
+
+                <div class="snapshot-icon">
+                    ●
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        TRACKING STATUS
+                    </span>
+
+                    <strong id="summaryTracking">
+                        Waiting
+                    </strong>
+
+                    <small>
+                        Current system state
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- VOLTAGE -->
+
+            <div class="snapshot-item power accent-yellow">
+
+                <div class="snapshot-icon">
+                    ⚡
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        PANEL VOLTAGE
+                    </span>
+
+                    <strong id="summaryVoltage">
+                        0.00 V
+                    </strong>
+
+                    <small>
+                        INA219 measurement
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CURRENT -->
+
+            <div class="snapshot-item power accent-cyan">
+
+                <div class="snapshot-icon">
+                    ≋
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        PANEL CURRENT
+                    </span>
+
+                    <strong id="summaryCurrent">
+                        0.00 mA
+                    </strong>
+
+                    <small>
+                        INA219 measurement
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- OUTPUT POWER -->
+
+            <div class="snapshot-item power accent-yellow">
+
+                <div class="snapshot-icon">
+                    ⚡
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        OUTPUT POWER
+                    </span>
+
+                    <strong id="summaryPower">
+                        0.000 W
+                    </strong>
+
+                    <small>
+                        V × I
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SESSION ENERGY -->
+
+            <div class="snapshot-item power accent-green">
+
+                <div class="snapshot-icon">
+                    ◉
+                </div>
+
+                <div class="snapshot-content">
+
+                    <span class="snapshot-label">
+                        SESSION ENERGY
+                    </span>
+
+                    <strong id="summaryEnergy">
+                        0.000 Wh
+                    </strong>
+
+                    <small>
+                        Accumulated this session
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER STRIP -->
+
+        <div class="snapshot-footer">
+
+            <div>
+
+                <span class="snapshot-footer-icon">
+                    ▣
+                </span>
+
+                CSV snapshots:
+                <strong id="summarySnapshotCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span class="snapshot-footer-icon">
+                    ◷
+                </span>
+
+                Interval:
+                <strong>
+                    30 seconds
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span class="snapshot-footer-icon">
+                    ▥
+                </span>
+
+                Live graph limit:
+                <strong>
+                    300 points
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TRACKING STATUS
+         ===================================================== -->
+
+    <section class="status-card">
+
+        <div>
+
+            <span class="small-label">
+                TRACKING STATUS
+            </span>
+
+
+            <h2 id="trackingMessage">
+                Waiting for Arduino...
+            </h2>
+
+        </div>
+
+
+
+        <div class="connection-info">
+
+            <span>
+                Arduino UNO
+            </span>
+
+            <span>
+                COM4
+            </span>
+
+            <span>
+                9600 baud
+            </span>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer>
+
+        <span>
+            Solar Tracking System
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            Arduino UNO
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            Dual LDR
+        </span>
+
+        <span>
+            •
+        </span>
+
+        <span>
+            INA219 Power Monitor
+        </span>
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     SOCKET.IO
+     ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js">
+</script>
+
+
+
+<!-- =====================================================
+     DASHBOARD JAVASCRIPT
+     ===================================================== -->
+
+<script src="/static/script.js">
+</script>
+
+
+</body>
+
+</html>
